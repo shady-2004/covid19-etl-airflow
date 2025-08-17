@@ -3,7 +3,7 @@ import glob
 import os
 import shutil
 
-def transform() : 
+def transform_data() : 
 
   files = glob.glob("Extracted_data/*.csv")
   folder_name1 = "Transformed_data"
@@ -34,12 +34,12 @@ def transform() :
       data.drop(['fips','admin','province_state',"lat",'long',"combined_key","last_update"],axis=1,inplace=True,  errors='ignore')
       data.dropna(inplace=True)
       data.drop_duplicates(inplace=True)
-      data.to_csv(f"./{folder_name1}/{cnt}_Transformed.csv")
+      data.to_csv(f"./{folder_name1}/{cnt}_Transformed.csv",index=False)
       cnt +=1
   
   dates.to_csv(f"./{folder_name2}/dates.csv",index=False)
 
-transform()
+transform_data()
     
     
 
