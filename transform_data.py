@@ -6,6 +6,8 @@ from sqlalchemy import create_engine
 from urllib.parse import quote_plus
 def transform_data() : 
   
+  columns = ["confirmed","deaths","recovered","active","incident_rate","case_fatality_ratio","country",'last_update']
+  
   server = r'SHIKO\SQLEXPRESS'
   database = 'covid_wh'
   driver = 'ODBC Driver 17 for SQL Server'
@@ -21,6 +23,8 @@ def transform_data() :
   folder_name1 = "Transformed_data"
   folder_name2 = "Dates"
   folder_name3 = 'Countries'
+
+
   if os.path.exists(folder_name1):
       shutil.rmtree(folder_name1)
   
@@ -52,7 +56,8 @@ def transform_data() :
       dates = pd.concat([dates, pd.DataFrame({"date": [date]})], ignore_index=True)
 
       # Cleaning and keeping only necessary data
-      data.drop(['fips','admin','province_state',"lat",'long',"combined_key","last_update"],axis=1,inplace=True,  errors='ignore')
+      data = data[ [col for col in data.columns if col in columns] ]
+
       data.dropna(inplace=True)
       data.drop_duplicates(inplace=True)
       data.to_csv(f"./{folder_name1}/{cnt}_Transformed.csv",index=False)
