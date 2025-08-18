@@ -44,6 +44,8 @@ def transform_data() :
       data.columns = data.columns.str.replace(r'[^a-zA-Z]','_',regex=True)
       data.columns = data.columns.str.replace(r'[^a-zA-Z]+$', '', regex=True)
       data.columns = data.columns.str.replace('incidence_rate','incident_rate')
+      data.rename(columns={'incidence_rate': 'incident_rate'}, inplace=True ,errors='ignore')
+
       data.columns = data.columns.str.replace('country_region',"country")
       # Reading date
       date = pd.to_datetime(data['last_update'][0],format='mixed').date()
@@ -64,10 +66,6 @@ def transform_data() :
     
       if not to_insert.empty:
         to_insert.to_frame().to_sql('dim_country', engine, if_exists='append', index=False)
-
-      dim_country = pd.read_sql_table('dim_country',engine)
-      
-      dim_country.to_csv(f'./{folder_name3}/countires.csv',index = False)
       
       cnt +=1
   

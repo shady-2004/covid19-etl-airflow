@@ -37,10 +37,5 @@ def transform_date():
         # Remove duplicates in new_dates to be safe
         new_dates = new_dates.drop_duplicates(subset=['date'])
         new_dates.to_sql('dim_date', engine, if_exists='append', index=False, chunksize=1000)
- 
-
-    # Export the updated dim_date table to CSV
-    dim_date = pd.read_sql('SELECT id , date FROM dim_date', engine)
-    dim_date.to_csv('./Dates/dates.csv', index=False)
 
 transform_date()
