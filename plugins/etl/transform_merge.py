@@ -54,4 +54,3 @@ def transform_merge():
 
     final_data.to_csv('covid_fact.csv', index=False)
 
-transform_merge()

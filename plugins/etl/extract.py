@@ -24,4 +24,3 @@ def extract() :
         data = pd.read_csv(file)
         data.to_csv(f"./{folder_name}/{cnt}_covid.csv",index=False)
         cnt += 1
-extract()

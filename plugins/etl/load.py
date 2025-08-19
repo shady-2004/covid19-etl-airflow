@@ -19,5 +19,3 @@ def load() :
     data = pd.read_csv('covid_fact.csv')
 
     data.to_sql('covid_fact' , engine, if_exists='append', index=False)
-
-load()
