@@ -2,7 +2,6 @@ csse_covid_19_daily_reports
 logs
 Transformed_data
 Extracted_data
-dags
 *.csv
 Dates
 Countries
