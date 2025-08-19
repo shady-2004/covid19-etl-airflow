@@ -2,17 +2,24 @@ from sqlalchemy import create_engine
 from urllib.parse import quote_plus
 import glob
 import pandas as pd
-
+from pathlib import Path
+import os
 def transform_merge():
+
+    PROJECT_ROOT = Path(__file__).parent.parent.parent  # two levels up from plugins/etl/
+    
+    os.chdir(PROJECT_ROOT)
+
     files = glob.glob("Transformed_data/*.csv")
 
-    server = r'SHIKO\SQLEXPRESS'
-    database = 'covid_wh'
-    driver = 'ODBC Driver 17 for SQL Server'
-
     params = quote_plus(
-        f"Driver={driver};Server={server};Database={database};Trusted_Connection=yes;"
-    )
+    "Driver={ODBC Driver 17 for SQL Server};"
+    "Server=host.docker.internal,1433;"
+    "Database=covid_wh;"
+    "UID=airflow_user;"  
+    "PWD=airflow_user;"  
+    "TrustServerCertificate=yes;"
+)
 
     engine = create_engine(f"mssql+pyodbc:///?odbc_connect={params}")
 

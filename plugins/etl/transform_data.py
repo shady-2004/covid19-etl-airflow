@@ -2,9 +2,15 @@ import pandas as pd
 import glob
 import os
 import shutil
+from pathlib import Path
+
 from sqlalchemy import create_engine
 from urllib.parse import quote_plus
 def transform_data() : 
+
+  PROJECT_ROOT = Path(__file__).parent.parent.parent  # two levels up from plugins/etl/
+    
+  os.chdir(PROJECT_ROOT)
   
   columns = ["confirmed","deaths","recovered","active","incident_rate","case_fatality_ratio","country",'last_update']
   
@@ -13,8 +19,13 @@ def transform_data() :
   driver = 'ODBC Driver 17 for SQL Server'
 
   params = quote_plus(
-    f"Driver={driver};Server={server};Database={database};Trusted_Connection=yes;"
- )
+    "Driver={ODBC Driver 17 for SQL Server};"
+    "Server=host.docker.internal,1433;"
+    "Database=covid_wh;"
+    "UID=airflow_user;"  
+    "PWD=airflow_user;"  
+    "TrustServerCertificate=yes;"
+)
 
   engine = create_engine(f"mssql+pyodbc:///?odbc_connect={params}")
 
