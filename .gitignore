@@ -3,7 +3,6 @@ logs
 Transformed_data
 Extracted_data
 dags
-plugins
 *.csv
 Dates
 Countries

@@ -13,8 +13,13 @@ def transform_data() :
   driver = 'ODBC Driver 17 for SQL Server'
 
   params = quote_plus(
-    f"Driver={driver};Server={server};Database={database};Trusted_Connection=yes;"
- )
+    "Driver={ODBC Driver 17 for SQL Server};"
+    "Server=host.docker.internal,1433;"
+    "Database=covid_wh;"
+    "UID=airflow_user;"  
+    "PWD=airflow_user;"  
+    "TrustServerCertificate=yes;"
+)
 
   engine = create_engine(f"mssql+pyodbc:///?odbc_connect={params}")
 
