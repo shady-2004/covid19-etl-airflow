@@ -87,7 +87,6 @@ def transform_data() :
   
   dates.to_csv(f"./{folder_name2}/dates.csv",index=False)
 
-transform_data()
     
     
 
